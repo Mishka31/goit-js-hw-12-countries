@@ -10,15 +10,16 @@ import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/mobile/dist/PNotifyMobile.css';
 import '@pnotify/countdown/dist/PNotifyCountdown.css';
 
-const inputSelector = document.querySelector('.js-input');
+const inputEl = document.querySelector('.js-input');
 const cardContainer = document.querySelector('.js-cardContainer');
 
-inputSelector.addEventListener('input', debounce(onInput, 500));
+inputEl.addEventListener('input', debounce(onInput, 500));
+inputEl.addEventListener('click', clickOnInput);
 cardContainer.addEventListener('click', clickOnCountry);
 //////////////////////////////////////////////
 function onInput() {
-  if (inputSelector.value.trim()) {
-    fetchCountries(inputSelector.value)
+  if (inputEl.value.trim()) {
+    fetchCountries(inputEl.value)
       .then(data => {
         if (data.length === 1) {
           renderCard(data);
@@ -28,7 +29,6 @@ function onInput() {
       .then(data => {
         if (data.length > 1 && data.length < 10) {
           renderList(data);
-          error({ text: 'На смотри список' });
         }
         return data;
       })
@@ -57,11 +57,14 @@ function renderList(array) {
   let markUpList = listOfCountries(array);
   cardContainer.innerHTML = markUpList;
 }
-
 function clickOnCountry(e) {
-  if (e.target.classList.contains('js-countries-list_el')) {
-    inputSelector.value = e.target.textContent;
+  if (e.target.classList.contains('js-listEl')) {
+    inputEl.value = e.target.textContent;
     cardContainer.innerHTML = '';
     onInput();
   }
+}
+function clickOnInput() {
+  inputEl.value = '';
+  cardContainer.innerHTML = '';
 }

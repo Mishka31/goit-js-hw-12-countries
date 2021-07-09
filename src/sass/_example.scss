@@ -1,6 +1,3 @@
-// body {
-//   background-color: blue;
-// }
 .js-input {
   display: flex;
   margin-right: auto;
@@ -36,10 +33,10 @@ img {
 .card-description {
   margin-left: 350px;
 }
-.js-countries-list_el {
+.js-listEl {
   cursor: pointer;
 }
-.js-countries-list_el:hover {
+.js-listEl:hover {
   color: rgb(109, 47, 255);
 }
 .card-desctiption_el {
